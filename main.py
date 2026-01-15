@@ -13,7 +13,7 @@ print(carro1)
 print(carro2)
 print(carro3)
 
-print("=" * 30)
+print("="*80)
 
 print(moto1)
 print(moto2)
