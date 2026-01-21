@@ -1,5 +1,5 @@
 from modelos.avaliacao import Avaliacao #importa a classe Avaliacao do arquivo avaliacao.py
-
+from modelos.cardapio.item_cardapio import ItemCardapio #importa a classe ItemCardapio do arquivo item_cardapio.py
 class Restaurante: #definição de uma classe
     restaurantes = [] #todo restaurante que for criado através do método init será adicionado a essa lista
     def __init__(self, nome, categoria): #metodo construtor que inicializa os atributos, o self referencia o self que estamos criando)
@@ -7,7 +7,8 @@ class Restaurante: #definição de uma classe
         self._categoria = categoria.upper() #atributo categoria com a função Upper que coloca todas as letras em maiúscula
         self._ativo = False #atributo ativo, o underline indica que é um atributo protegido que não deve ser acessado diretamente fora da classe
         self._avaliacao = [] #atributo avaliação que é uma lista vazia
-        Restaurante.restaurantes.append(self)
+        self._cardapio = [] #atributo cardapio que é uma lista vazia
+        Restaurante.restaurantes.append(self) #adiciona o restaurante criado na lista de restaurantes da classe Restaurante
 
     def __str__(self): #metodo que retorna uma string representando o self
         return f'{self._nome} - {self._categoria} - {"Aberto" if self.ativo else "Fechado"}'
@@ -42,5 +43,11 @@ class Restaurante: #definição de uma classe
         media = media / quantidade_notas #calcula a media de avaliações
         return round (media, 1 ) #retorna a media arredondada
 
-        
-    
+    def adicionar_no_cardapio (self, item):
+        if isinstance (item, ItemCardapio):
+            self._cardapio.append(item)
+
+    def exibir_cardapio (self):
+        print (f'Cardapio do restaurante {self._nome}\n')
+        for i, item in enumerate(self._cardapio, start=1): #start significa que a lista vai começar no número 1
+            print (f'{i}. Nome:{item._nome} | Preço: R$ {item._preco:.2f}')
